@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReUse - Barangmu Masih Berguna | Platform Sewa & Jual Beli Barang Layak Pakai</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        reuse: {
+                            brown: '#603212',
+                            'brown-dark': '#48240B',
+                            'brown-light': '#8A4F23',
+                            green: '#425E29',
+                            'green-hover': '#32481F',
+                            olive: '#829B5A',
+                            'olive-light': '#B3C88E',
+                            cream: '#FAF3E0',
+                            'cream-light': '#FFFDF7',
+                            'cream-card': '#F2E8D5',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF3E0;
+            color: #332218;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #FAF3E0;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #829B5A;
+            border-radius: 9999px;
+        }
+
+        .gradient-banner {
+            background: linear-gradient(135deg, #425E29 0%, #30461D 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(96, 50, 18, 0.08), 0 8px 10px -6px rgba(96, 50, 18, 0.05);
+        }
+
+        .badge-jual {
+            background-color: #603212;
+            color: #FAF3E0;
+        }
+
+        .badge-sewa {
+            background-color: #425E29;
+            color: #FAF3E0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between custom-scrollbar">
+
+    <!-- NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 bg-[#FAF3E0]/90 backdrop-blur-md border-b border-reuse-olive/30 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- LOGO SECTION -->
+                <a href="#home" onclick="switchMainTab('marketplace')" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-white p-1.5 shadow-md border border-reuse-olive/20 flex items-center justify-center transform group-hover:scale-105 transition">
+                        <svg viewBox="0 0 100 100" class="w-full h-full">
+                            <path d="M 25,15 H 60 C 75,15 85,25 85,40 C 85,52 76,60 65,63 L 82,90 H 62 L 48,65 H 43 V 90 H 25 Z" fill="#425E29"/>
+                            <path d="M 43,30 C 52,20 68,22 70,36 C 72,48 55,50 43,50 Z" fill="#FAF3E0"/>
+                            <path d="M 60,20 L 75,28 L 65,40 Z" fill="#425E29"/>
+                            <path d="M 40,42 C 45,55 58,62 58,62 C 58,62 46,68 38,58 C 34,52 38,44 40,42 Z" fill="#829B5A"/>
+                            <path d="M 48,65 C 55,75 68,88 80,90 C 72,82 62,70 52,65 Z" fill="#603212"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center">
+                            <span class="text-2xl font-extrabold text-reuse-green tracking-tight">Re</span>
+                            <span class="text-2xl font-extrabold text-reuse-brown tracking-tight">Use</span>
+                        </div>
+                        <p class="text-[10px] font-semibold tracking-wider text-reuse-brown/80 -mt-1 uppercase">Barang Lama, Cerita Baru</p>
+                    </div>
+                </a>
+
+                <!-- DESKTOP NAV LINKS -->
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 font-medium text-sm text-reuse-brown">
+                    <button onclick="switchMainTab('marketplace')" id="nav-btn-marketplace" class="px-3.5 py-2 rounded-xl transition bg-reuse-green text-white font-semibold">
+                        <i class="fa-solid fa-store mr-1.5"></i> Marketplace
+                    </button>
+                    <button onclick="switchMainTab('owner-dashboard')" id="nav-btn-owner-dashboard" class="px-3.5 py-2 rounded-xl transition hover:bg-reuse-olive/20">
+                        <i class="fa-solid fa-chart-line mr-1.5"></i> Dashboard Pemilik
+                    </button>
+                    <button onclick="switchMainTab('infographic')" id="nav-btn-infographic" class="px-3.5 py-2 rounded-xl transition hover:bg-reuse-olive/20">
+                        <i class="fa-solid fa-circle-info mr-1.5"></i> Panduan Fitur
+                    </button>
+                    <button onclick="switchMainTab('calculator')" id="nav-btn-calculator" class="px-3.5 py-2 rounded-xl transition hover:bg-reuse-olive/20">
+                        <i class="fa-solid fa-calculator mr-1.5"></i> Kalkulator Cuan
+                    </button>
+                </nav>
+
+                <!-- RIGHT ACTION BUTTONS -->
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="openVerificationModal()" class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-reuse-olive/20 text-reuse-green border border-reuse-olive/30 text-xs font-bold hover:bg-reuse-olive/30 transition">
+                        <i class="fa-solid fa-shield-check text-reuse-green"></i> ID Terverifikasi
+                    </button>
+
+                    <button onclick="openUploadModal()" class="flex items-center gap-2 bg-reuse-brown hover:bg-reuse-brown-dark text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold shadow-md transition transform active:scale-95">
+                        <i class="fa-solid fa-plus-circle"></i>
+                        <span class="hidden sm:inline">Sewakan / Jual</span>
+                    </button>
+
+                    <button onclick="openHelpModal()" class="p-2.5 rounded-xl bg-white border border-reuse-olive/30 text-reuse-brown hover:bg-reuse-cream transition shadow-sm" title="Pusat Bantuan & Sengketa">
+                        <i class="fa-solid fa-headset text-base"></i>
+                    </button>
+
+                    <button onclick="openCartModal()" class="relative p-2.5 rounded-xl bg-white border border-reuse-olive/30 text-reuse-brown hover:bg-reuse-cream transition shadow-sm" title="Draf Transaksi & Sewa">
+                        <i class="fa-solid fa-box-archive text-base"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-reuse-green text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+                    </button>
+
+                    <button onclick="openAdminModal()" class="p-2.5 rounded-xl bg-reuse-green text-white hover:bg-reuse-green-hover transition shadow-sm" title="Konsol Admin Website">
+                        <i class="fa-solid fa-user-shield text-base"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <!-- MARKETPLACE TAB CONTENT -->
+        <div id="tab-marketplace" class="space-y-8 pb-16">
+            
+            <!-- HERO BANNER -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+                <div class="relative overflow-hidden rounded-3xl gradient-banner text-white p-6 sm:p-10 lg:p-12 shadow-xl border border-reuse-green/20">
+                    <div class="absolute -right-10 -bottom-10 opacity-15 pointer-events-none">
+                        <i class="fa-solid fa-recycle text-[280px]"></i>
+                    </div>
+
+                    <div class="relative z-10 max-w-3xl space-y-4">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-reuse-olive/30 border border-reuse-olive-light/40 text-reuse-cream backdrop-blur-md">
+                            <i class="fa-solid fa-seedling text-reuse-olive-light"></i> Platform Sewa & Jual Beli Terverifikasi
+                        </span>
+                        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+                            Cari Barang Sewa & Bekas <br>
+                            <span class="text-reuse-olive-light">Hemat, Aman dengan Deposit & Kalender Sewa!</span>
+                        </h1>
+                        <p class="text-sm sm:text-base text-reuse-cream/90 leading-relaxed max-w-2xl">
+                            Temukan barang kebutuhan harian Anda secara general mulai dari Elektronik, Pakaian, Interior, Peralatan Rumah Tangga, hingga Hobi.
+                        </p>
+
+                        <!-- MULTI-FILTER SEARCH BAR -->
+                        <div class="pt-3 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                                <div class="sm:col-span-5 relative">
+                                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                                    <input type="text" id="search-input" onkeyup="filterItems()" placeholder="Cari TV, Sofa, Blender, Kamera, Sempurna..." class="w-full pl-10 pr-3 py-2.5 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none text-xs sm:text-sm font-medium">
+                                </div>
+
+                                <div class="sm:col-span-3">
+                                    <select id="type-filter" onchange="filterItems()" class="w-full px-3 py-2.5 rounded-xl bg-reuse-cream text-reuse-brown font-semibold text-xs sm:text-sm focus:outline-none cursor-pointer border-0">
+                                        <option value="ALL">Semua Opsi (Sewa & Jual)</option>
+                                        <option value="SEWA">🟢 Khusus Sewa Harian</option>
+                                        <option value="JUAL">🟤 Khusus Jual Bekas</option>
+                                    </select>
+                                </div>
+
+                                <div class="sm:col-span-4">
+                                    <select id="location-filter" onchange="filterItems()" class="w-full px-3 py-2.5 rounded-xl bg-white text-gray-800 font-semibold text-xs sm:text-sm focus:outline-none cursor-pointer">
+                                        <option value="ALL">📍 Semua Lokasi</option>
+                                        <option value="Malang">Malang</option>
+                                        <option value="Surabaya">Surabaya</option>
+                                        <option value="Sidoarjo">Sidoarjo</option>
+                                        <option value="Jakarta">Jakarta</option>
+                                        <option value="Bandung">Bandung</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/10 text-xs text-reuse-cream">
+                                <div class="flex items-center gap-2">
+                                    <span>Maksimal Harga: <strong id="price-limit-label" class="text-amber-300">Rp 5.000.000</strong></span>
+                                    <input type="range" id="price-filter" min="20000" max="5000000" step="50000" value="5000000" oninput="updatePriceFilterLabel(); filterItems();" class="accent-amber-300 cursor-pointer w-28 sm:w-40">
+                                </div>
+
+                                <div class="flex items-center gap-3">
+                                    <label class="flex items-center gap-1.5 cursor-pointer">
+                                        <input type="checkbox" id="verified-only-filter" onchange="filterItems()" class="accent-reuse-olive rounded">
+                                        <span>Hanya Pemilik Terverifikasi</span>
+                                    </label>
+                                    <button onclick="resetFilters()" class="text-amber-300 hover:underline font-bold text-xs flex items-center gap-1">
+                                        <i class="fa-solid fa-arrows-rotate"></i> Reset
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GENERAL CATEGORIES FILTER -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-bold text-reuse-brown flex items-center gap-2">
+                        <i class="fa-solid fa-border-all text-reuse-green"></i> Kategori General ReUse
+                    </h2>
+                    <span class="text-xs text-reuse-brown/70 font-medium">Pilih kategori umum kebutuhan Anda</span>
+                </div>
+
+                <div class="flex items-center gap-3 overflow-x-auto pb-3 custom-scrollbar" id="category-pills">
+                    <!-- Dynamic Pills JS -->
+                </div>
+            </section>
+
+            <!-- MARKETPLACE PRODUCT GRID -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-reuse-brown">Daftar Barang Layak Pakai</h3>
+                        <p class="text-xs text-reuse-brown/70">Tersedia kalender pemesanan sewa, verifikasi pemilik, & opsi deposit jaminan</p>
+                    </div>
+                    <div class="text-sm text-reuse-brown/80 font-medium bg-white/70 px-3 py-1.5 rounded-xl border border-reuse-olive/20 shadow-sm">
+                        Menampilkan <span id="item-count" class="font-bold text-reuse-green">0</span> barang
+                    </div>
+                </div>
+
+                <div id="items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards -->
+                </div>
+
+                <div id="empty-state" class="hidden text-center py-16 bg-white/60 rounded-3xl border border-dashed border-reuse-brown/30">
+                    <i class="fa-solid fa-box-open text-5xl text-reuse-brown/40 mb-3"></i>
+                    <h4 class="text-lg font-bold text-reuse-brown">Tidak Ada Barang Ditemukan</h4>
+                    <p class="text-sm text-reuse-brown/70 mt-1">Coba sesuaikan kata kunci, harga maksimum, atau filter kategori Anda.</p>
+                    <button onclick="resetFilters()" class="mt-4 px-4 py-2 bg-reuse-green text-white text-xs font-semibold rounded-xl">Reset Filter</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- OWNER DASHBOARD TAB -->
+        <div id="tab-owner-dashboard" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-reuse-brown/10 pb-6">
+                <div>
+                    <span class="px-3 py-1 rounded-full text-xs font-bold bg-reuse-brown/10 text-reuse-brown border border-reuse-brown/20">
+                        AREA PEMILIK BARANG
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-reuse-brown mt-1">Dashboard Pengelolaan & Penghasilan</h2>
+                    <p class="text-xs text-reuse-brown/70">Kelola daftar barang general, pesanan sewa masuk, serta rekapitulasi cuan harian Anda.</p>
+                </div>
+
+                <button onclick="openUploadModal()" class="px-5 py-3 bg-reuse-green text-white font-bold rounded-2xl shadow-md hover:bg-reuse-green-hover transition flex items-center gap-2 text-xs sm:text-sm">
+                    <i class="fa-solid fa-plus-circle"></i> Tambah Barang Baru
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-3xl border border-reuse-olive/30 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center text-reuse-brown/70 text-xs">
+                        <span>Total Pendapatan Bersih</span>
+                        <i class="fa-solid fa-wallet text-reuse-green text-lg"></i>
+                    </div>
+                    <p id="owner-stat-income" class="text-2xl font-black text-reuse-green">Rp 2.450.000</p>
+                    <p class="text-[10px] text-reuse-brown/60">Setelah dipotong komisi ReUse (10%)</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-reuse-olive/30 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center text-reuse-brown/70 text-xs">
+                        <span>Barang Aktif Disewakan</span>
+                        <i class="fa-solid fa-arrows-rotate text-reuse-brown text-lg"></i>
+                    </div>
+                    <p id="owner-stat-rent-count" class="text-2xl font-black text-reuse-brown">6 Unit</p>
+                    <p class="text-[10px] text-reuse-brown/60">Tersedia di kalender sewa online</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-reuse-olive/30 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center text-reuse-brown/70 text-xs">
+                        <span>Barang Terjual</span>
+                        <i class="fa-solid fa-tags text-amber-600 text-lg"></i>
+                    </div>
+                    <p id="owner-stat-sold-count" class="text-2xl font-black text-amber-700">3 Barang</p>
+                    <p class="text-[10px] text-reuse-brown/60">Transaksi jual bekas selesai</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-3xl border border-reuse-olive/30 shadow-sm space-y-2">
+                    <div class="flex justify-between items-center text-reuse-brown/70 text-xs">
+                        <span>Sewa Perlu Diproses</span>
+                        <i class="fa-solid fa-bell text-red-500 text-lg"></i>
+                    </div>
+                    <p id="owner-stat-pending" class="text-2xl font-black text-red-600">1 Pesanan</p>
+                    <p class="text-[10px] text-reuse-brown/60">Menunggu persetujuan jadwal Anda</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="flex border-b border-reuse-brown/20 space-x-6 text-sm font-bold">
+                    <button onclick="switchOwnerTab('orders')" id="owner-tab-btn-orders" class="pb-3 border-b-2 border-reuse-green text-reuse-green">
+                        <i class="fa-solid fa-list-check mr-1.5"></i> Kelola Pesanan & Jadwal
+                    </button>
+                    <button onclick="switchOwnerTab('items')" id="owner-tab-btn-items" class="pb-3 border-b-2 border-transparent text-reuse-brown/60 hover:text-reuse-brown">
+                        <i class="fa-solid fa-boxes-stacked mr-1.5"></i> Daftar Barang Saya
+                    </button>
+                </div>
+
+                <div id="owner-subtab-orders" class="space-y-4">
+                    <h3 class="text-lg font-bold text-reuse-brown">Permintaan Sewa & Transaksi Masuk</h3>
+                    <div class="bg-white rounded-3xl border border-reuse-olive/30 shadow-sm overflow-x-auto">
+                        <table class="w-full text-left text-xs text-reuse-brown">
+                            <thead class="bg-reuse-cream/70 font-bold border-b border-reuse-olive/20 text-reuse-brown">
+                                <tr>
+                                    <th class="p-4">Barang</th>
+                                    <th class="p-4">Penyewa</th>
+                                    <th class="p-4">Tanggal Sewa (Kalender)</th>
+                                    <th class="p-4">Rincian Pembayaran</th>
+                                    <th class="p-4">Status & Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="owner-orders-table-body" class="divide-y divide-reuse-cream-card">
+                                <!-- Dynamic JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="owner-subtab-items" class="hidden space-y-4">
+                    <h3 class="text-lg font-bold text-reuse-brown">Barang Dipublikasikan di ReUse</h3>
+                    <div id="owner-my-items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Dynamic JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFOGRAPHIC TAB -->
+        <div id="tab-infographic" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+            <div class="text-center max-w-3xl mx-auto space-y-3">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-reuse-olive/20 text-reuse-green border border-reuse-olive/30">
+                    PANDUAN LENGKAP FITUR REUSE
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-reuse-brown">
+                    Panduan & Kategori General ReUse
+                </h2>
+                <p class="text-sm text-reuse-brown/80">
+                    Penjelasan komprehensif kategori general (Elektronik, Pakaian, Interior, Peralatan Rumah Tangga, Hobi, & Otomotif).
+                </p>
+            </div>
+
+            <div class="flex overflow-x-auto gap-2 pb-2 border-b border-reuse-brown/20 custom-scrollbar justify-start lg:justify-center">
+                <button onclick="setInfoSection(1)" id="info-tab-1" class="info-step-btn active px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-reuse-green text-white">1. Kategori General</button>
+                <button onclick="setInfoSection(2)" id="info-tab-2" class="info-step-btn px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-reuse-brown hover:bg-reuse-cream-card">2. Fitur Penyewa & Pembeli</button>
+                <button onclick="setInfoSection(3)" id="info-tab-3" class="info-step-btn px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-reuse-brown hover:bg-reuse-cream-card">3. Fitur Pemilik Barang</button>
+                <button onclick="setInfoSection(4)" id="info-tab-4" class="info-step-btn px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-reuse-brown hover:bg-reuse-cream-card">4. Keamanan & Escrow</button>
+            </div>
+
+            <div id="infographic-container" class="bg-white rounded-3xl p-6 sm:p-10 border border-reuse-olive/30 shadow-xl min-h-[380px]">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+
+        <!-- CALCULATOR TAB -->
+        <div id="tab-calculator" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <span class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-reuse-brown/10 text-reuse-brown border border-reuse-brown/20">
+                    SIMULASI FINANCIAL & LINGKUNGAN
+                </span>
+                <h2 class="text-3xl font-extrabold text-reuse-brown">Hitung Potensi Cuan Barang Menganggurmu</h2>
+                <p class="text-sm text-reuse-brown/80">
+                    Cek berapa rupiah yang bisa kamu hasilkan setiap bulan dengan menyewakan barang general di ReUse.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-6 bg-white p-6 sm:p-8 rounded-3xl border border-reuse-olive/30 shadow-lg space-y-6">
+                    <h3 class="text-lg font-bold text-reuse-brown border-b pb-3 border-reuse-cream-card flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-reuse-green"></i> Atur Barang General yang Dimiliki
+                    </h3>
+
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-reuse-brown mb-1">Pilih Kategori / Jenis Barang</label>
+                            <select id="calc-item-type" onchange="updateCalculator()" class="w-full px-4 py-3 rounded-xl border border-reuse-olive/30 bg-reuse-cream/50 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green font-medium">
+                                <option value="elektronik" data-rate="150000" data-co2="6.5">Elektronik & Gadget (Sewa ~Rp 150rb/hari)</option>
+                                <option value="pakaian" data-rate="80000" data-co2="4.0">Pakaian & Fashion (Sewa ~Rp 80rb/hari)</option>
+                                <option value="interior" data-rate="120000" data-co2="9.0">Interior & Perabot (Sewa ~Rp 120rb/hari)</option>
+                                <option value="rumahtangga" data-rate="60000" data-co2="3.5">Peralatan Rumah Tangga (Sewa ~Rp 60rb/hari)</option>
+                                <option value="hobi" data-rate="90000" data-co2="5.0">Hobi & Olahraga (Sewa ~Rp 90rb/hari)</option>
+                                <option value="otomotif" data-rate="250000" data-co2="15.0">Otomotif & Aksesoris (Sewa ~Rp 250rb/hari)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-bold text-reuse-brown">Estimasi Hari Disewakan Per Bulan</label>
+                                <span id="calc-days-label" class="text-sm font-extrabold text-reuse-green">8 Hari</span>
+                            </div>
+                            <input type="range" id="calc-days" min="1" max="25" value="8" oninput="updateCalculator()" class="w-full accent-reuse-green cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1">
+                                <label class="text-xs font-bold text-reuse-brown">Jumlah Unit Barang</label>
+                                <span id="calc-qty-label" class="text-sm font-extrabold text-reuse-brown">1 Unit</span>
+                            </div>
+                            <input type="range" id="calc-qty" min="1" max="10" value="1" oninput="updateCalculator()" class="w-full accent-reuse-brown cursor-pointer">
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-reuse-cream/70 border border-reuse-olive/20 text-xs text-reuse-brown space-y-1">
+                        <p class="font-bold"><i class="fa-solid fa-lightbulb text-amber-600"></i> Fakta ReUse:</p>
+                        <p>Barang di rumah yang jarang terpakai kini bisa menjadi sumber penghasilan pasif yang aman dan produktif.</p>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 bg-reuse-green text-white p-6 sm:p-8 rounded-3xl shadow-xl space-y-6 relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-8 opacity-10">
+                        <i class="fa-solid fa-hand-holding-dollar text-[220px]"></i>
+                    </div>
+
+                    <div class="relative z-10 space-y-6">
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-white/20 text-reuse-cream backdrop-blur-md">
+                            HASIL ESTIMASI PENDAPATAN
+                        </span>
+
+                        <div class="space-y-1">
+                            <p class="text-xs text-reuse-cream/80 font-medium">Estimasi Penghasilan Pasif Per Bulan:</p>
+                            <p id="calc-monthly-income" class="text-4xl sm:text-5xl font-black text-amber-300">Rp 1.200.000</p>
+                            <p class="text-xs text-reuse-cream/70">Setara dengan <span id="calc-yearly-income" class="font-bold text-white">Rp 14.400.000</span> per tahun!</p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/20">
+                            <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                                <p class="text-xs text-reuse-cream/80">Pengurangan Jejak Karbon</p>
+                                <p id="calc-carbon-saved" class="text-2xl font-bold text-white mt-1">32.0 kg CO2</p>
+                                <p class="text-[10px] text-reuse-cream/70 mt-0.5">Dihindari dari manufaktur baru</p>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-2xl backdrop-blur-sm">
+                                <p class="text-xs text-reuse-cream/80">Dampak Sirkular</p>
+                                <p id="calc-waste-saved" class="text-2xl font-bold text-white mt-1">100% Worth</p>
+                                <p class="text-[10px] text-reuse-cream/70 mt-0.5">Memperpanjang usia guna barang</p>
+                            </div>
+                        </div>
+
+                        <button onclick="openUploadModal()" class="w-full py-4 bg-amber-400 hover:bg-amber-300 text-reuse-brown font-extrabold rounded-2xl text-center shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-rocket"></i> Mulai Sewakan Barang Ini Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL 1: DETAIL BARANG, KALENDER SEWA, & PEMBAYARAN -->
+    <div id="modal-detail" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl relative border border-reuse-olive/30 my-8">
+            <button onclick="closeDetailModal()" class="absolute top-5 right-5 w-10 h-10 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div id="modal-detail-content" class="space-y-6">
+                <!-- Dynamic Content -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: FITUR CHAT DENGAN PEMILIK BARANG -->
+    <div id="modal-chat" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3 border-reuse-cream-card">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-reuse-green text-white font-bold flex items-center justify-center text-sm" id="chat-owner-avatar">
+                        P
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-reuse-brown text-sm" id="chat-owner-name">Pemilik Barang</h4>
+                        <p class="text-[10px] text-reuse-green font-semibold" id="chat-item-title">Membahas Barang...</p>
+                    </div>
+                </div>
+                <button onclick="closeChatModal()" class="w-8 h-8 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="chat-messages-box" class="h-64 overflow-y-auto space-y-3 p-3 bg-reuse-cream/40 rounded-2xl border border-reuse-olive/20 text-xs custom-scrollbar">
+                <!-- Dynamic Chat -->
+            </div>
+
+            <form onsubmit="handleSendChatMessage(event)" class="flex gap-2">
+                <input type="text" id="chat-input-text" required placeholder="Tanyakan kondisi barang, COD, dll..." class="flex-grow px-3.5 py-2.5 rounded-xl border border-reuse-olive/30 text-xs focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                <button type="submit" class="px-4 py-2.5 bg-reuse-green text-white font-bold rounded-xl text-xs hover:bg-reuse-green-hover transition">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: UPLOAD BARANG GENERAL -->
+    <div id="modal-upload" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-5">
+            <div class="flex justify-between items-center border-b pb-4 border-reuse-cream-card">
+                <div>
+                    <h3 class="text-xl font-bold text-reuse-brown">Upload & Kelola Barang Anda</h3>
+                    <p class="text-xs text-reuse-brown/70">Tentukan kategori general & opsi sewa atau jual</p>
+                </div>
+                <button onclick="closeUploadModal()" class="w-9 h-9 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="upload-form" onsubmit="handleUploadSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-reuse-brown mb-1">Opsi Transaksi *</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <label class="flex items-center justify-center gap-2 p-3 rounded-2xl border-2 border-reuse-green bg-reuse-green/5 cursor-pointer font-semibold text-xs text-reuse-green">
+                            <input type="radio" name="upload-type" value="SEWA" checked class="accent-reuse-green">
+                            🟢 Sewakan (Tarif Harian)
+                        </label>
+                        <label class="flex items-center justify-center gap-2 p-3 rounded-2xl border-2 border-reuse-brown/30 bg-reuse-cream cursor-pointer font-semibold text-xs text-reuse-brown">
+                            <input type="radio" name="upload-type" value="JUAL" class="accent-reuse-brown">
+                            🟤 Jual Bekas (Harga Tetap)
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-reuse-brown mb-1">Nama Barang *</label>
+                    <input type="text" id="up-title" required placeholder="Contoh: Smart TV LG 43 inch / Sofa Minimalis L" class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-reuse-brown mb-1">Kategori General *</label>
+                        <select id="up-category" required class="w-full px-3 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                            <option value="Elektronik">Elektronik</option>
+                            <option value="Pakaian">Pakaian</option>
+                            <option value="Interior">Interior</option>
+                            <option value="Rumah Tangga">Rumah Tangga</option>
+                            <option value="Hobi">Hobi</option>
+                            <option value="Otomotif">Otomotif</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-reuse-brown mb-1">Kondisi Barang *</label>
+                        <select id="up-condition" required class="w-full px-3 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                            <option value="Sangat Bagus (95%)">Sangat Bagus (95%)</option>
+                            <option value="Bagus & Normal (88%)">Bagus & Normal (88%)</option>
+                            <option value="Fungsional Layak (75%)">Fungsional Layak (75%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-reuse-brown mb-1">Harga (Rp) *</label>
+                        <input type="number" id="up-price" required placeholder="Contoh: 100000" class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                        <span class="text-[10px] text-reuse-brown/60">Sewa: /hari | Jual: total</span>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-reuse-brown mb-1">Deposit Jaminan Sewa (Rp)</label>
+                        <input type="number" id="up-deposit" placeholder="Contoh: 150000" class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                        <span class="text-[10px] text-reuse-brown/60">Refundable saat selesai</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-reuse-brown mb-1">Lokasi Pemilik *</label>
+                    <input type="text" id="up-location" required placeholder="Contoh: Malang / Jakarta / Surabaya" class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-reuse-brown mb-1">URL Foto Barang (Opsional)</label>
+                    <input type="url" id="up-image" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-reuse-brown mb-1">Deskripsi Ringkas</label>
+                    <textarea id="up-desc" rows="2" placeholder="Sebutkan kelengkapan, spesifikasi, atau catatan penggunaan..." class="w-full px-4 py-2.5 rounded-xl border border-reuse-olive/30 text-sm focus:outline-none focus:ring-2 focus:ring-reuse-green"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 bg-reuse-green text-white font-bold rounded-2xl shadow-lg hover:bg-reuse-green-hover transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Terbitkan Barang ke ReUse
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 4: VERIFIKASI AKUN & KTP -->
+    <div id="modal-verification" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3 border-reuse-cream-card">
+                <h3 class="text-lg font-bold text-reuse-brown flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-reuse-green"></i> Verifikasi Identitas Akun
+                </h3>
+                <button onclick="closeVerificationModal()" class="w-8 h-8 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-3 bg-reuse-green/10 rounded-2xl border border-reuse-green/20 text-xs text-reuse-brown space-y-1">
+                <p class="font-bold text-reuse-green"><i class="fa-solid fa-circle-check"></i> Status Saat Ini: Terverifikasi</p>
+                <p>Identitas Anda telah divalidasi oleh sistem ReUse untuk transaksi sewa lintas kategori yang aman.</p>
+            </div>
+
+            <form onsubmit="handleVerificationSubmit(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-bold text-reuse-brown mb-1">Nama Sesuai Identitas</label>
+                    <input type="text" value="Budi Santoso" required class="w-full px-3 py-2 rounded-xl border border-reuse-olive/30">
+                </div>
+                <div>
+                    <label class="block font-bold text-reuse-brown mb-1">Nomor Induk KTP / ID</label>
+                    <input type="text" value="3573019829300001" required class="w-full px-3 py-2 rounded-xl border border-reuse-olive/30">
+                </div>
+                <button type="submit" class="w-full py-2.5 bg-reuse-green text-white font-bold rounded-xl shadow-md hover:bg-reuse-green-hover transition">
+                    Perbarui Verifikasi Identitas
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 5: PUSAT BANTUAN & SENGKETA -->
+    <div id="modal-help" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3 border-reuse-cream-card">
+                <h3 class="text-lg font-bold text-reuse-brown flex items-center gap-2">
+                    <i class="fa-solid fa-headset text-reuse-brown"></i> Pusat Bantuan & Sengketa
+                </h3>
+                <button onclick="closeHelpModal()" class="w-8 h-8 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs text-reuse-brown">
+                <p>Ada kendala dengan barang sewa kategori elektronik, pakaian, interior, atau pengembalian deposit?</p>
+                
+                <form onsubmit="handleDisputeSubmit(event)" class="space-y-3 bg-reuse-cream/50 p-4 rounded-2xl border border-reuse-olive/20">
+                    <div>
+                        <label class="block font-bold mb-1">Topik Komplain / Bantuan</label>
+                        <select id="help-topic" class="w-full px-3 py-2 rounded-xl border border-reuse-olive/30 bg-white">
+                            <option value="Kerusakan Barang Sewa">Kerusakan Barang / Garansi Deposit</option>
+                            <option value="Keterlambatan Pengembalian">Keterlambatan Pengembalian Barang</option>
+                            <option value="Barang Tidak Sesuai">Barang Tidak Sesuai Deskripsi Kategori</option>
+                            <option value="Kendala Pembayaran">Kendala Pembayaran & Escrow</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Nomor Transaksi (ID)</label>
+                        <input type="text" placeholder="Contoh: TRX-92810" required class="w-full px-3 py-2 rounded-xl border border-reuse-olive/30 bg-white">
+                    </div>
+                    <div>
+                        <label class="block font-bold mb-1">Penjelasan Detail Masalah</label>
+                        <textarea rows="3" placeholder="Jelaskan kronologi kendala Anda..." required class="w-full px-3 py-2 rounded-xl border border-reuse-olive/30 bg-white"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-2.5 bg-reuse-brown text-white font-bold rounded-xl shadow-md hover:bg-reuse-brown-dark transition">
+                        Kirim Laporan Sengketa ke Admin
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 6: ADMIN CONSOLE -->
+    <div id="modal-admin" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-5">
+            <div class="flex justify-between items-center border-b pb-3 border-reuse-cream-card">
+                <div>
+                    <h3 class="text-xl font-bold text-reuse-brown flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-reuse-green"></i> Console Admin ReUse
+                    </h3>
+                    <p class="text-xs text-reuse-brown/70">Kelola pengguna general, verifikasi KTP, hapus iklan, & sengketa</p>
+                </div>
+                <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 text-center text-xs font-bold">
+                <div class="p-3 bg-reuse-cream rounded-2xl border border-reuse-olive/20">
+                    <span class="block text-reuse-green text-lg font-black">245</span> Total Pengguna
+                </div>
+                <div class="p-3 bg-reuse-cream rounded-2xl border border-reuse-olive/20">
+                    <span class="block text-reuse-brown text-lg font-black">12</span> Barang Diperiksa
+                </div>
+                <div class="p-3 bg-reuse-cream rounded-2xl border border-reuse-olive/20">
+                    <span class="block text-red-600 text-lg font-black">0</span> Sengketa Aktif
+                </div>
+            </div>
+
+            <div class="space-y-2 text-xs">
+                <h4 class="font-bold text-reuse-brown">Aksi Moderasi Cepat Admin:</h4>
+                <div class="space-y-2">
+                    <div class="p-3 bg-reuse-cream/60 rounded-xl border border-reuse-olive/20 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold">Verifikasi KTP: Rian Outdoor (Penyewa)</p>
+                            <p class="text-[10px] text-reuse-brown/60">Dokumen KTP Lengkap & Valid</p>
+                        </div>
+                        <button onclick="showToast('Verifikasi KTP Rian Outdoor DISETUJUI!')" class="px-3 py-1 bg-reuse-green text-white font-bold rounded-lg text-[10px]">Setujui</button>
+                    </div>
+
+                    <div class="p-3 bg-reuse-cream/60 rounded-xl border border-reuse-olive/20 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold">Laporan Iklan: Kulkas 2 Pintu</p>
+                            <p class="text-[10px] text-reuse-brown/60">Dilaporkan oleh user @dina_r</p>
+                        </div>
+                        <button onclick="showToast('Iklan bermasalah telah ditindaklanjuti Admin')" class="px-3 py-1 bg-red-600 text-white font-bold rounded-lg text-[10px]">Tindak Lanjuti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 7: CART / DRAF TRANSAKSI SEWA & PEMBELIAN -->
+    <div id="modal-cart" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-reuse-olive/30 my-8 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3 border-reuse-cream-card">
+                <h3 class="text-xl font-bold text-reuse-brown flex items-center gap-2">
+                    <i class="fa-solid fa-box-archive text-reuse-green"></i> Draf Transaksi Saya
+                </h3>
+                <button onclick="closeCartModal()" class="w-8 h-8 rounded-full bg-reuse-cream text-reuse-brown flex items-center justify-center font-bold hover:bg-reuse-brown hover:text-white transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="cart-items-container" class="space-y-3 max-h-80 overflow-y-auto custom-scrollbar">
+                <!-- Dynamic Cart Items -->
+            </div>
+
+            <div class="border-t pt-4 border-reuse-cream-card space-y-2">
+                <div class="flex justify-between items-center text-xs text-reuse-brown/70">
+                    <span>Subtotal Biaya Transaksi:</span>
+                    <span id="cart-subtotal-price" class="font-bold text-reuse-brown">Rp 0</span>
+                </div>
+                <div class="flex justify-between items-center text-xs text-reuse-brown/70">
+                    <span>Estimasi Total Deposit Jaminan:</span>
+                    <span id="cart-deposit-price" class="font-bold text-amber-700">Rp 0</span>
+                </div>
+                <div class="flex justify-between items-center text-sm font-extrabold text-reuse-brown pt-1 border-t border-dashed">
+                    <span>Grand Total Pembayaran:</span>
+                    <span id="cart-total-price" class="text-lg font-black text-reuse-green">Rp 0</span>
+                </div>
+            </div>
+
+            <button onclick="checkoutCart()" id="checkout-btn" class="w-full py-3.5 bg-reuse-green text-white font-bold rounded-xl shadow-md hover:bg-reuse-green-hover transition disabled:opacity-50">
+                Lanjutkan Pembayaran Online & Kontak Pemilik
+            </button>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden transform transition-all duration-300 translate-y-10 opacity-0">
+        <div id="toast-bg" class="bg-reuse-green text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 border border-white/20">
+            <i id="toast-icon" class="fa-solid fa-circle-check text-lg text-amber-300"></i>
+            <span id="toast-msg" class="text-sm font-semibold">Pesan Notifikasi</span>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-reuse-brown-dark text-reuse-cream py-12 border-t border-reuse-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="space-y-3 md:col-span-2">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-lg bg-white p-1 flex items-center justify-center">
+                            <svg viewBox="0 0 100 100" class="w-full h-full">
+                                <path d="M 25,15 H 60 C 75,15 85,25 85,40 C 85,52 76,60 65,63 L 82,90 H 62 L 48,65 H 43 V 90 H 25 Z" fill="#425E29"/>
+                                <path d="M 43,30 C 52,20 68,22 70,36 C 72,48 55,50 43,50 Z" fill="#FAF3E0"/>
+                                <path d="M 60,20 L 75,28 L 65,40 Z" fill="#425E29"/>
+                                <path d="M 40,42 C 45,55 58,62 58,62 C 58,62 46,68 38,58 C 34,52 38,44 40,42 Z" fill="#829B5A"/>
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-black text-white">Re<span class="text-reuse-olive-light">Use</span></span>
+                    </div>
+                    <p class="text-xs text-reuse-cream/80 max-w-sm leading-relaxed">
+                        Platform digital general terpercaya mempertemukan pemilik barang dengan penyewa & pembeli lintas kategori: Elektronik, Pakaian, Interior, Rumah Tangga, dan Hobi.
+                    </p>
+                    <div class="text-xs text-amber-300/90 font-medium pt-1">
+                        "Barangmu Masih Berguna."
+                    </div>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                    <h4 class="font-bold text-white text-sm">Fitur Utama Platform</h4>
+                    <ul class="space-y-1.5 text-reuse-cream/70">
+                        <li><a href="#" onclick="switchMainTab('marketplace')" class="hover:text-amber-300">Pencarian & Kalender Sewa</a></li>
+                        <li><a href="#" onclick="switchMainTab('owner-dashboard')" class="hover:text-amber-300">Dashboard Pemilik Barang</a></li>
+                        <li><a href="#" onclick="openVerificationModal()" class="hover:text-amber-300">Verifikasi Akun KTP</a></li>
+                        <li><a href="#" onclick="openHelpModal()" class="hover:text-amber-300">Pusat Bantuan & Sengketa</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-2 text-xs">
+                    <h4 class="font-bold text-white text-sm">Prinsip ReUse</h4>
+                    <div class="p-3 bg-white/5 rounded-2xl border border-white/10 space-y-1">
+                        <p class="font-semibold text-amber-300">Hemat, Aman, Berkelanjutan</p>
+                        <p class="text-[11px] text-reuse-cream/70">Memperpanjang masa guna barang general & memberikan nilai tambah ekonomi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-6 text-center text-xs text-reuse-cream/50 flex flex-col sm:flex-row justify-between items-center gap-2">
+                <p>&copy; 2026 ReUse Platform. Sesuai Kategori General & Interaktif Penuh.</p>
+                <p>Fitur Sewa & Jual Bekas Terintegrasi</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC & STATE MANAGEMENT -->
+    <script>
+        // EXPANDED GENERAL DATASET (Elektronik, Pakaian, Interior, Rumah Tangga, Hobi, Otomotif)
+        const initialItems = [
+            {
+                id: 1,
+                title: 'Kamera Mirrorless Canon EOS M50 + Kit',
+                category: 'Elektronik',
+                type: 'SEWA',
+                price: 120000,
+                priceUnit: '/hari',
+                deposit: 150000,
+                condition: 'Sangat Bagus (95%)',
+                location: 'Malang',
+                owner: 'Budi Santoso',
+                ownerRating: 4.9,
+                ownerVerified: true,
+                desc: 'Lengkap dengan lensa kit 15-45mm, 2 baterai, SD Card 64GB, dan tas kamera. Sangat cocok untuk hunting foto / vlog acara.',
+                image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80',
+                reviews: [
+                    { user: 'Siti R.', rating: 5, comment: 'Kamera bersih, fungsi normal semua, pemilik sangat fast respon!' },
+                    { user: 'Dimas A.', rating: 4.8, comment: 'Baterai awet untuk seharian acara.' }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Gaun Pesta Elegant Mutiara Size M',
+                category: 'Pakaian',
+                type: 'JUAL',
+                price: 350000,
+                priceUnit: 'total',
+                deposit: 0,
+                condition: '1x Pakai Acara Nikahan (98%)',
+                location: 'Surabaya',
+                owner: 'Siti Aminah',
+                ownerRating: 4.9,
+                ownerVerified: true,
+                desc: 'Hanya pernah dipakai sekali untuk kondangan. Kain bahan premium silk & brokat halus. Alasan jual karena sudah kekecilan.',
+                image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80',
+                reviews: []
+            },
+            {
+                id: 3,
+                title: 'Sofa Minimalis L-Shape Scandinavian',
+                category: 'Interior',
+                type: 'SEWA',
+                price: 150000,
+                priceUnit: '/hari',
+                deposit: 200000,
+                condition: 'Bagus & Clean (90%)',
+                location: 'Jakarta',
+                owner: 'Rian Furniture',
+                ownerRating: 5.0,
+                ownerVerified: true,
+                desc: 'Cocok untuk event pameran, syuting film, atau dekorasi rumah sementara. Bahan kain bludru lembut dan empuk.',
+                image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+                reviews: [
+                    { user: 'Dewi L.', rating: 5, comment: 'Bersih sekali dan nyaman saat digunakan untuk event.' }
+                ]
+            },
+            {
+                id: 4,
+                title: 'Blender & Food Processor Philips HR2221',
+                category: 'Rumah Tangga',
+                type: 'SEWA',
+                price: 45000,
+                priceUnit: '/hari',
+                deposit: 60000,
+                condition: 'Normal Siap Pakai (90%)',
+                location: 'Malang',
+                owner: 'Ibu Ratna',
+                ownerRating: 4.8,
+                ownerVerified: true,
+                desc: 'Dilengkapi pisau ganda untuk menghaluskan daging, bumbu dapur, atau membuat jus segar.',
+                image: 'https://images.unsplash.com/photo-1570222094114-d074f3e95e5b?auto=format&fit=crop&w=600&q=80',
+                reviews: []
+            },
+            {
+                id: 5,
+                title: 'Tenda Dome Camping Capacity 4 Person',
+                category: 'Hobi',
+                type: 'SEWA',
+                price: 50000,
+                priceUnit: '/hari',
+                deposit: 50000,
+                condition: 'Bagus & Clean (90%)',
+                location: 'Batu',
+                owner: 'Rian Outdoor',
+                ownerRating: 5.0,
+                ownerVerified: true,
+                desc: 'Double layer anti air hujan deras. Sudah termasuk matras & lampu tenda LED. Selalu dicuci bersih setelah disewa.',
+                image: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80',
+                reviews: []
+            },
+            {
+                id: 6,
+                title: 'Roofbox Mobil Thule Touring L',
+                category: 'Otomotif',
+                type: 'SEWA',
+                price: 180000,
+                priceUnit: '/hari',
+                deposit: 300000,
+                condition: 'Sangat Mulus (95%)',
+                location: 'Surabaya',
+                owner: 'Bagas Oto',
+                ownerRating: 4.9,
+                ownerVerified: true,
+                desc: 'Kapasitas bagasi tambahan 420 liter untuk perjalanan mudik atau liburan keluarga anti ribet.',
+                image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80',
+                reviews: []
+            },
+            {
+                id: 7,
+                title: 'Smart TV LED 43 Inch Android Full HD',
+                category: 'Elektronik',
+                type: 'JUAL',
+                price: 2100000,
+                priceUnit: 'total',
+                deposit: 0,
+                condition: 'Normal Mulus (90%)',
+                location: 'Bandung',
+                owner: 'Fajar Nugraha',
+                ownerRating: 4.7,
+                ownerVerified: true,
+                desc: 'Dilengkapi Netflix & YouTube built-in. Layar jernih tanpa dead pixel. Dijual karena pindah kota.',
+                image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&w=600&q=80',
+                reviews: []
+            }
+        ];
+
+        let ownerOrders = [
+            {
+                id: 'TRX-1092',
+                itemTitle: 'Kamera Mirrorless Canon EOS M50',
+                renterName: 'Rian Outdoor (Verified KTP)',
+                startDate: '2026-09-28',
+                endDate: '2026-09-30',
+                days: 2,
+                rentPrice: 240000,
+                serviceFee: 24000,
+                deposit: 150000,
+                netIncome: 216000,
+                status: 'MENUNGGU_PERSETUJUAN'
+            },
+            {
+                id: 'TRX-1088',
+                itemTitle: 'Sofa Minimalis L-Shape',
+                renterName: 'Ahmad Event',
+                startDate: '2026-09-20',
+                endDate: '2026-09-21',
+                days: 1,
+                rentPrice: 150000,
+                serviceFee: 15000,
+                deposit: 200000,
+                netIncome: 135000,
+                status: 'DIAMBIL'
+            }
+        ];
+
+        let itemsDatabase = [...initialItems];
+        let currentCategory = 'ALL';
+        let cartState = [];
+        let currentChatContext = { owner: '', title: '' };
+
+        // GENERAL CATEGORIES CONFIGURATION
+        const categories = [
+            { id: 'ALL', label: 'Semua Kategori', icon: 'fa-grip' },
+            { id: 'Elektronik', label: 'Elektronik', icon: 'fa-tv' },
+            { id: 'Pakaian', label: 'Pakaian', icon: 'fa-shirt' },
+            { id: 'Interior', label: 'Interior', icon: 'fa-couch' },
+            { id: 'Rumah Tangga', label: 'Rumah Tangga', icon: 'fa-blender' },
+            { id: 'Hobi', label: 'Hobi & Olahraga', icon: 'fa-basketball' },
+            { id: 'Otomotif', label: 'Otomotif', icon: 'fa-car' },
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategoryPills();
+            renderItems();
+            renderOwnerOrders();
+            renderOwnerItems();
+            updateCalculator();
+            setInfoSection(1);
+        });
+
+        function renderCategoryPills() {
+            const container = document.getElementById('category-pills');
+            container.innerHTML = categories.map(cat => {
+                const isActive = currentCategory === cat.id;
+                return `
+                    <button onclick="filterByCategory('${cat.id}')" 
+                        class="px-4 py-2 rounded-2xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap border shadow-sm ${
+                            isActive 
+                            ? 'bg-reuse-brown text-white border-reuse-brown' 
+                            : 'bg-white text-reuse-brown border-reuse-olive/30 hover:bg-reuse-cream'
+                        }">
+                        <i class="fa-solid ${cat.icon} ${isActive ? 'text-amber-300' : 'text-reuse-green'}"></i>
+                        ${cat.label}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function filterByCategory(catId) {
+            currentCategory = catId;
+            renderCategoryPills();
+            renderItems();
+        }
+
+        function updatePriceFilterLabel() {
+            const val = parseInt(document.getElementById('price-filter').value);
+            document.getElementById('price-limit-label').textContent = `Rp ${val.toLocaleString('id-ID')}`;
+        }
+
+        function filterItems() {
+            renderItems();
+        }
+
+        function resetFilters() {
+            currentCategory = 'ALL';
+            document.getElementById('search-input').value = '';
+            document.getElementById('type-filter').value = 'ALL';
+            document.getElementById('location-filter').value = 'ALL';
+            document.getElementById('price-filter').value = 5000000;
+            document.getElementById('verified-only-filter').checked = false;
+            updatePriceFilterLabel();
+            renderCategoryPills();
+            renderItems();
+        }
+
+        function renderItems() {
+            const grid = document.getElementById('items-grid');
+            const empty = document.getElementById('empty-state');
+            const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+            const typeVal = document.getElementById('type-filter').value;
+            const locationVal = document.getElementById('location-filter').value;
+            const maxPriceVal = parseInt(document.getElementById('price-filter').value);
+            const verifiedOnly = document.getElementById('verified-only-filter').checked;
+
+            const filtered = itemsDatabase.filter(item => {
+                const matchCat = (currentCategory === 'ALL' || item.category === currentCategory);
+                const matchSearch = item.title.toLowerCase().includes(searchVal) || 
+                                    item.desc.toLowerCase().includes(searchVal) || 
+                                    item.location.toLowerCase().includes(searchVal);
+                const matchType = (typeVal === 'ALL' || item.type === typeVal);
+                const matchLoc = (locationVal === 'ALL' || item.location === locationVal);
+                const matchPrice = item.price <= maxPriceVal;
+                const matchVerified = !verifiedOnly || item.ownerVerified;
+
+                return matchCat && matchSearch && matchType && matchLoc && matchPrice && matchVerified;
+            });
+
+            document.getElementById('item-count').textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            } else {
+                empty.classList.add('hidden');
+            }
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="bg-white rounded-3xl overflow-hidden border border-reuse-olive/25 card-shadow group hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative h-48 overflow-hidden bg-reuse-cream">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/600x400/829B5A/ffffff?text=${encodeURIComponent(item.category)}'">
+                            
+                            <span class="absolute top-3 left-3 ${item.type === 'SEWA' ? 'badge-sewa' : 'badge-jual'} text-[11px] font-extrabold px-3 py-1 rounded-full shadow-md flex items-center gap-1.5">
+                                <i class="fa-solid ${item.type === 'SEWA' ? 'fa-arrows-rotate' : 'fa-tag'}"></i>
+                                ${item.type === 'SEWA' ? 'Opsi SEWA' : 'Opsi JUAL'}
+                            </span>
+
+                            ${item.ownerVerified ? `
+                                <span class="absolute top-3 right-3 bg-white/90 backdrop-blur-md text-reuse-green text-[10px] font-bold px-2.5 py-1 rounded-xl shadow-sm border border-reuse-green/20" title="Pemilik Terverifikasi ID">
+                                    <i class="fa-solid fa-shield-check"></i> Terverifikasi
+                                </span>
+                            ` : ''}
+
+                            <span class="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md text-reuse-brown text-[10px] font-bold px-2.5 py-1 rounded-xl shadow-sm border border-reuse-brown/10">
+                                <i class="fa-solid fa-star text-amber-500 mr-0.5"></i> Kondisi ${item.condition.split(' ')[0]}
+                            </span>
+                        </div>
+
+                        <div class="p-5 space-y-3">
+                            <div class="flex items-center justify-between text-[11px] text-reuse-brown/70 font-semibold">
+                                <span class="bg-reuse-cream px-2.5 py-0.5 rounded-md text-reuse-green border border-reuse-olive/20">${item.category}</span>
+                                <span><i class="fa-solid fa-location-dot text-reuse-brown"></i> ${item.location}</span>
+                            </div>
+
+                            <h4 class="font-bold text-reuse-brown text-base leading-snug line-clamp-2 group-hover:text-reuse-green transition">
+                                ${item.title}
+                            </h4>
+
+                            <p class="text-xs text-reuse-brown/70 line-clamp-2 leading-relaxed">
+                                ${item.desc}
+                            </p>
+
+                            ${item.type === 'SEWA' && item.deposit > 0 ? `
+                                <p class="text-[10px] font-semibold text-amber-800 bg-amber-50 p-2 rounded-xl border border-amber-200">
+                                    <i class="fa-solid fa-vault mr-1"></i> Deposit Jaminan: Rp ${item.deposit.toLocaleString('id-ID')}
+                                </p>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="px-5 pb-5 pt-2 border-t border-reuse-cream-card flex items-center justify-between gap-2">
+                        <div>
+                            <span class="text-[10px] text-reuse-brown/60 block font-medium">Harga ${item.type === 'SEWA' ? 'Sewa' : 'Beli'}:</span>
+                            <span class="text-lg font-black ${item.type === 'SEWA' ? 'text-reuse-green' : 'text-reuse-brown'}">
+                                Rp ${item.price.toLocaleString('id-ID')}
+                                <span class="text-xs font-normal text-reuse-brown/60">${item.priceUnit}</span>
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-1.5">
+                            <button onclick="openChatModal('${item.owner}', '${item.title}')" class="p-2 rounded-xl bg-reuse-cream text-reuse-brown hover:bg-reuse-brown hover:text-white transition text-xs" title="Chat Pemilik">
+                                <i class="fa-solid fa-comments"></i>
+                            </button>
+                            <button onclick="openDetailModal(${item.id})" class="px-3.5 py-2 rounded-xl ${item.type === 'SEWA' ? 'bg-reuse-green hover:bg-reuse-green-hover text-white' : 'bg-reuse-brown hover:bg-reuse-brown-dark text-white'} text-xs font-bold transition shadow-md flex items-center gap-1">
+                                Detail & Kalender
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openDetailModal(id) {
+            const item = itemsDatabase.find(i => i.id === id);
+            if (!item) return;
+
+            const modalContent = document.getElementById('modal-detail-content');
+            const today = new Date().toISOString().split('T')[0];
+            const next3Days = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="h-64 rounded-2xl overflow-hidden bg-reuse-cream border border-reuse-olive/20 shadow-inner relative">
+                            <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 ${item.type === 'SEWA' ? 'badge-sewa' : 'badge-jual'} text-xs font-bold px-3 py-1 rounded-full shadow">
+                                ${item.type === 'SEWA' ? 'SEWA HARIAN' : 'JUAL BEKAS'}
+                            </span>
+                        </div>
+
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-2 text-xs text-reuse-brown">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <div class="w-8 h-8 rounded-full bg-reuse-green text-white font-bold flex items-center justify-center">
+                                        ${item.owner.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-sm leading-tight">${item.owner}</p>
+                                        <p class="text-[10px] text-reuse-brown/70">Lokasi: ${item.location}</p>
+                                    </div>
+                                </div>
+                                ${item.ownerVerified ? `
+                                    <span class="px-2 py-0.5 rounded-md bg-reuse-green/20 text-reuse-green font-bold text-[10px] flex items-center gap-1">
+                                        <i class="fa-solid fa-shield-check"></i> KTP Verified
+                                    </span>
+                                ` : ''}
+                            </div>
+                            <div class="flex items-center justify-between pt-2 border-t border-reuse-olive/10">
+                                <span>Rating Pemilik: <strong class="text-amber-600">★ ${item.ownerRating} / 5.0</strong></span>
+                                <button onclick="openChatModal('${item.owner}', '${item.title}')" class="text-reuse-green font-bold hover:underline">
+                                    <i class="fa-solid fa-comments mr-1"></i> Chat Pemilik
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white rounded-2xl border border-reuse-olive/20 text-xs text-reuse-brown space-y-1">
+                            <p class="font-bold flex items-center gap-1 text-reuse-brown">
+                                <i class="fa-solid fa-camera text-reuse-green"></i> Dokumentasi Fisik Kategori ${item.category}:
+                            </p>
+                            <p class="text-[10px] text-reuse-brown/70">Terverifikasi layak pakai sesuai standar ReUse.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div>
+                                <span class="text-xs font-semibold text-reuse-green bg-reuse-cream px-2.5 py-1 rounded-md border border-reuse-olive/20">${item.category}</span>
+                                <h3 class="text-xl font-extrabold text-reuse-brown mt-1">${item.title}</h3>
+                                <p class="text-xs text-reuse-brown/80 mt-1 leading-relaxed">${item.desc}</p>
+                            </div>
+
+                            <div class="bg-reuse-cream/40 p-3 rounded-2xl border border-reuse-olive/20 flex justify-between items-center text-xs">
+                                <div>
+                                    <span class="text-[10px] text-reuse-brown/60 block">Harga Dasar:</span>
+                                    <span class="text-xl font-black ${item.type === 'SEWA' ? 'text-reuse-green' : 'text-reuse-brown'}">
+                                        Rp ${item.price.toLocaleString('id-ID')} <span class="text-xs font-normal text-reuse-brown/60">${item.priceUnit}</span>
+                                    </span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-reuse-brown/60 block">Kondisi Barang:</span>
+                                    <span class="font-bold text-reuse-brown">${item.condition}</span>
+                                </div>
+                            </div>
+
+                            ${item.type === 'SEWA' ? `
+                                <div class="p-4 bg-white rounded-2xl border border-reuse-olive/30 shadow-sm space-y-3 text-xs">
+                                    <h4 class="font-bold text-reuse-brown flex items-center gap-1.5">
+                                        <i class="fa-solid fa-calendar-days text-reuse-green"></i> Kalender & Tanggal Sewa Barang
+                                    </h4>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-reuse-brown/70 mb-0.5">Tanggal Mulai Sewa</label>
+                                            <input type="date" id="cal-start-date" value="${today}" onchange="recalculateDetailPayment(${item.price}, ${item.deposit})" class="w-full px-2.5 py-1.5 rounded-xl border border-reuse-olive/30 bg-reuse-cream/30 text-xs font-bold text-reuse-brown">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[10px] font-bold text-reuse-brown/70 mb-0.5">Tanggal Pengembalian</label>
+                                            <input type="date" id="cal-end-date" value="${next3Days}" onchange="recalculateDetailPayment(${item.price}, ${item.deposit})" class="w-full px-2.5 py-1.5 rounded-xl border border-reuse-olive/30 bg-reuse-cream/30 text-xs font-bold text-reuse-brown">
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] text-reuse-green font-medium flex items-center gap-1">
+                                        <i class="fa-solid fa-circle-check"></i> Status: Tersedia pada kalender sewa
+                                    </p>
+                                </div>
+                            ` : ''}
+
+                            <div class="p-4 bg-reuse-green/10 rounded-2xl border border-reuse-green/20 space-y-2 text-xs">
+                                <h4 class="font-bold text-reuse-brown border-b pb-1 border-reuse-green/20">Rincian Pembayaran Online:</h4>
+                                <div class="flex justify-between text-reuse-brown">
+                                    <span>Total Biaya Sewa/Beli (<span id="calc-days-count">${item.type === 'SEWA' ? '3 Hari' : '1 Unit'}</span>):</span>
+                                    <span id="detail-rent-subtotal" class="font-bold">Rp ${(item.type === 'SEWA' ? item.price * 3 : item.price).toLocaleString('id-ID')}</span>
+                                </div>
+                                <div class="flex justify-between text-reuse-brown">
+                                    <span>Biaya Layanan Platform (10%):</span>
+                                    <span id="detail-service-fee" class="font-bold">Rp ${(item.type === 'SEWA' ? item.price * 3 * 0.1 : item.price * 0.1).toLocaleString('id-ID')}</span>
+                                </div>
+                                <div class="flex justify-between text-reuse-brown">
+                                    <span>Estimasi Pengiriman / Pickup:</span>
+                                    <span class="font-bold">Rp 15.000</span>
+                                </div>
+                                ${item.type === 'SEWA' ? `
+                                    <div class="flex justify-between text-amber-800 font-semibold pt-1 border-t border-reuse-green/20">
+                                        <span>Deposit Jaminan (Refundable):</span>
+                                        <span id="detail-deposit-fee" class="font-bold">Rp ${item.deposit.toLocaleString('id-ID')}</span>
+                                    </div>
+                                ` : ''}
+                                <div class="flex justify-between items-center text-sm font-black text-reuse-green pt-2 border-t border-reuse-green/30">
+                                    <span>Total Tagihan:</span>
+                                    <span id="detail-grand-total" class="text-base font-black">Rp 0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t pt-3 border-reuse-cream-card space-y-2">
+                            <p class="font-bold text-xs text-reuse-brown">Ulasan Pengguna:</p>
+                            <div class="max-h-24 overflow-y-auto space-y-1.5 custom-scrollbar">
+                                ${item.reviews && item.reviews.length > 0 ? item.reviews.map(r => `
+                                    <div class="p-2 bg-reuse-cream/50 rounded-xl text-[11px]">
+                                        <span class="font-bold text-reuse-brown">${r.user}</span> <span class="text-amber-600">★ ${r.rating}</span>
+                                        <p class="text-reuse-brown/80">${r.comment}</p>
+                                    </div>
+                                `).join('') : '<p class="text-[10px] text-reuse-brown/60 italic">Belum ada ulasan untuk barang ini.</p>'}
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 pt-2">
+                            <button onclick="addToCartFromDetail(${item.id})" class="flex-grow py-3 bg-reuse-green hover:bg-reuse-green-hover text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-cart-plus"></i> Tambah ke Draf Transaksi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modal-detail').classList.remove('hidden');
+            recalculateDetailPayment(item.price, item.deposit);
+        }
+
+        function recalculateDetailPayment(unitPrice, depositVal) {
+            const startDateEl = document.getElementById('cal-start-date');
+            const endDateEl = document.getElementById('cal-end-date');
+            
+            let days = 1;
+            if (startDateEl && endDateEl) {
+                const d1 = new Date(startDateEl.value);
+                const d2 = new Date(endDateEl.value);
+                const diffTime = d2.getTime() - d1.getTime();
+                days = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+            }
+
+            const daysCountEl = document.getElementById('calc-days-count');
+            if (daysCountEl) daysCountEl.textContent = `${days} Hari`;
+
+            const rentSubtotal = unitPrice * days;
+            const serviceFee = Math.round(rentSubtotal * 0.1);
+            const deliveryFee = 15000;
+            const deposit = depositVal || 0;
+            const grandTotal = rentSubtotal + serviceFee + deliveryFee + deposit;
+
+            const subEl = document.getElementById('detail-rent-subtotal');
+            const feeEl = document.getElementById('detail-service-fee');
+            const grandEl = document.getElementById('detail-grand-total');
+
+            if (subEl) subEl.textContent = `Rp ${rentSubtotal.toLocaleString('id-ID')}`;
+            if (feeEl) feeEl.textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
+            if (grandEl) grandEl.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+        }
+
+        function closeDetailModal() {
+            document.getElementById('modal-detail').classList.add('hidden');
+        }
+
+        function openChatModal(ownerName, itemTitle) {
+            currentChatContext = { owner: ownerName, title: itemTitle };
+            document.getElementById('chat-owner-name').textContent = ownerName;
+            document.getElementById('chat-owner-avatar').textContent = ownerName.charAt(0);
+            document.getElementById('chat-item-title').textContent = itemTitle;
+
+            const chatBox = document.getElementById('chat-messages-box');
+            chatBox.innerHTML = `
+                <div class="bg-white p-2.5 rounded-xl border border-reuse-olive/20 text-reuse-brown max-w-[85%] space-y-1">
+                    <p class="font-bold text-[10px] text-reuse-green">${ownerName} (Pemilik)</p>
+                    <p>Halo! Ada yang bisa dibantu mengenai penyewaan atau pembelian barang <strong>${itemTitle}</strong>?</p>
+                </div>
+            `;
+
+            document.getElementById('modal-chat').classList.remove('hidden');
+        }
+
+        function closeChatModal() {
+            document.getElementById('modal-chat').classList.add('hidden');
+        }
+
+        function handleSendChatMessage(e) {
+            e.preventDefault();
+            const inputEl = document.getElementById('chat-input-text');
+            const msgText = inputEl.value.trim();
+            if (!msgText) return;
+
+            const chatBox = document.getElementById('chat-messages-box');
+            chatBox.innerHTML += `
+                <div class="bg-reuse-brown text-white p-2.5 rounded-xl ml-auto max-w-[85%] space-y-0.5">
+                    <p class="font-bold text-[10px] text-amber-300">Anda</p>
+                    <p>${msgText}</p>
+                </div>
+            `;
+
+            inputEl.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                chatBox.innerHTML += `
+                    <div class="bg-white p-2.5 rounded-xl border border-reuse-olive/20 text-reuse-brown max-w-[85%] space-y-1">
+                        <p class="font-bold text-[10px] text-reuse-green">${currentChatContext.owner}</p>
+                        <p>Siap, barang dalam kondisi prima & siap diproses melalui platform ReUse!</p>
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+
+        function addToCartFromDetail(itemId) {
+            const item = itemsDatabase.find(i => i.id === itemId);
+            if (!item) return;
+
+            cartState.push(item);
+            updateCartBadge();
+            closeDetailModal();
+            showToast(`"${item.title}" ditambahkan ke draf transaksi!`);
+        }
+
+        function updateCartBadge() {
+            document.getElementById('cart-count').textContent = cartState.length;
+        }
+
+        function openCartModal() {
+            const container = document.getElementById('cart-items-container');
+            const subtotalEl = document.getElementById('cart-subtotal-price');
+            const depositEl = document.getElementById('cart-deposit-price');
+            const totalEl = document.getElementById('cart-total-price');
+
+            if (cartState.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-reuse-brown/60 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-3xl"></i>
+                        <p class="text-xs font-semibold">Belum ada draf transaksi aktif.</p>
+                    </div>
+                `;
+                subtotalEl.textContent = 'Rp 0';
+                depositEl.textContent = 'Rp 0';
+                totalEl.textContent = 'Rp 0';
+            } else {
+                let subtotal = 0;
+                let depositTotal = 0;
+
+                container.innerHTML = cartState.map((item, index) => {
+                    subtotal += item.price;
+                    depositTotal += (item.deposit || 0);
+
+                    return `
+                        <div class="flex items-center justify-between p-3 rounded-2xl bg-reuse-cream/60 border border-reuse-olive/20 text-xs">
+                            <div class="space-y-0.5 max-w-[200px]">
+                                <p class="font-bold text-reuse-brown truncate">${item.title}</p>
+                                <p class="text-[10px] text-reuse-brown/70">${item.type === 'SEWA' ? 'Sewa Harian' : 'Beli Bekas'} • ${item.category}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-black text-reuse-green">Rp ${item.price.toLocaleString('id-ID')}</p>
+                                <button onclick="removeFromCart(${index})" class="text-[10px] text-red-600 hover:underline">Hapus</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                const grandTotal = subtotal + depositTotal + (cartState.length * 15000);
+                subtotalEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+                depositEl.textContent = `Rp ${depositTotal.toLocaleString('id-ID')}`;
+                totalEl.textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+            }
+
+            document.getElementById('modal-cart').classList.remove('hidden');
+        }
+
+        function removeFromCart(index) {
+            cartState.splice(index, 1);
+            updateCartBadge();
+            openCartModal();
+        }
+
+        function closeCartModal() {
+            document.getElementById('modal-cart').classList.add('hidden');
+        }
+
+        function checkoutCart() {
+            if (cartState.length === 0) return;
+            showToast('Transaksi online berhasil diproses! Dana diamankan dengan ReUse Escrow.');
+            cartState = [];
+            updateCartBadge();
+            closeCartModal();
+        }
+
+        function switchOwnerTab(subTab) {
+            if (subTab === 'orders') {
+                document.getElementById('owner-subtab-orders').classList.remove('hidden');
+                document.getElementById('owner-subtab-items').classList.add('hidden');
+                document.getElementById('owner-tab-btn-orders').className = "pb-3 border-b-2 border-reuse-green text-reuse-green font-bold";
+                document.getElementById('owner-tab-btn-items').className = "pb-3 border-b-2 border-transparent text-reuse-brown/60 hover:text-reuse-brown font-bold";
+            } else {
+                document.getElementById('owner-subtab-orders').classList.add('hidden');
+                document.getElementById('owner-subtab-items').classList.remove('hidden');
+                document.getElementById('owner-tab-btn-orders').className = "pb-3 border-b-2 border-transparent text-reuse-brown/60 hover:text-reuse-brown font-bold";
+                document.getElementById('owner-tab-btn-items').className = "pb-3 border-b-2 border-reuse-green text-reuse-green font-bold";
+            }
+        }
+
+        function renderOwnerOrders() {
+            const tbody = document.getElementById('owner-orders-table-body');
+            tbody.innerHTML = ownerOrders.map((order, index) => `
+                <tr class="hover:bg-reuse-cream/30">
+                    <td class="p-4 font-bold text-reuse-brown">${order.itemTitle}</td>
+                    <td class="p-4">${order.renterName}</td>
+                    <td class="p-4 font-medium">${order.startDate} s/d ${order.endDate} (${order.days} Hari)</td>
+                    <td class="p-4">
+                        <p class="font-black text-reuse-green">Bersih: Rp ${order.netIncome.toLocaleString('id-ID')}</p>
+                        <p class="text-[10px] text-reuse-brown/60">Deposit: Rp ${order.deposit.toLocaleString('id-ID')}</p>
+                    </td>
+                    <td class="p-4">
+                        ${order.status === 'MENUNGGU_PERSETUJUAN' ? `
+                            <div class="flex gap-1.5">
+                                <button onclick="updateOrderStatus(${index}, 'DIAMBIL')" class="px-3 py-1 bg-reuse-green text-white font-bold rounded-lg text-[10px] shadow">Terima Sewa</button>
+                                <button onclick="updateOrderStatus(${index}, 'DITOLAK')" class="px-2 py-1 bg-red-600 text-white font-bold rounded-lg text-[10px]">Tolak</button>
+                            </div>
+                        ` : order.status === 'DIAMBIL' ? `
+                            <button onclick="updateOrderStatus(${index}, 'DIKEMBALIKAN')" class="px-3 py-1 bg-amber-600 text-white font-bold rounded-lg text-[10px] shadow">
+                                Tandai Dikembalikan
+                            </button>
+                        ` : `
+                            <span class="px-2.5 py-1 rounded-md bg-green-100 text-green-800 font-bold text-[10px]">
+                                Selesai & Refund Deposit
+                            </span>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateOrderStatus(index, newStatus) {
+            ownerOrders[index].status = newStatus;
+            renderOwnerOrders();
+            showToast(`Status pesanan diperbarui menjadi: ${newStatus}`);
+        }
+
+        function renderOwnerItems() {
+            const container = document.getElementById('owner-my-items-grid');
+            container.innerHTML = itemsDatabase.slice(0, 4).map(item => `
+                <div class="p-4 bg-white rounded-2xl border border-reuse-olive/20 shadow-sm space-y-2 text-xs">
+                    <div class="flex justify-between items-center">
+                        <span class="${item.type === 'SEWA' ? 'badge-sewa' : 'badge-jual'} text-[10px] px-2 py-0.5 rounded-full font-bold">${item.type}</span>
+                        <span class="text-reuse-brown/60">${item.location}</span>
+                    </div>
+                    <h4 class="font-bold text-reuse-brown text-sm truncate">${item.title}</h4>
+                    <p class="font-black text-reuse-green">Rp ${item.price.toLocaleString('id-ID')} ${item.priceUnit}</p>
+                    <div class="flex gap-2 pt-2 border-t">
+                        <button onclick="showToast('Status barang diubah ke Non-Aktif')" class="flex-grow py-1.5 bg-reuse-cream text-reuse-brown font-bold rounded-lg text-[10px]">Nonaktifkan</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openUploadModal() {
+            document.getElementById('modal-upload').classList.remove('hidden');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('modal-upload').classList.add('hidden');
+        }
+
+        function handleUploadSubmit(e) {
+            e.preventDefault();
+
+            const type = document.querySelector('input[name="upload-type"]:checked').value;
+            const title = document.getElementById('up-title').value;
+            const category = document.getElementById('up-category').value;
+            const condition = document.getElementById('up-condition').value;
+            const price = parseInt(document.getElementById('up-price').value);
+            const deposit = parseInt(document.getElementById('up-deposit').value) || 0;
+            const location = document.getElementById('up-location').value;
+            let image = document.getElementById('up-image').value;
+            const desc = document.getElementById('up-desc').value || 'Barang general terawat dengan baik.';
+
+            if (!image) {
+                const fallbacks = {
+                    'Elektronik': 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80',
+                    'Pakaian': 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80',
+                    'Interior': 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80',
+                    'Rumah Tangga': 'https://images.unsplash.com/photo-1570222094114-d074f3e95e5b?auto=format&fit=crop&w=600&q=80',
+                    'Hobi': 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=600&q=80',
+                    'Otomotif': 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=600&q=80'
+                };
+                image = fallbacks[category] || fallbacks['Elektronik'];
+            }
+
+            const newItem = {
+                id: Date.now(),
+                title,
+                category,
+                type,
+                price,
+                priceUnit: type === 'SEWA' ? '/hari' : 'total',
+                deposit,
+                condition,
+                location,
+                owner: 'Budi Santoso (Anda)',
+                ownerRating: 5.0,
+                ownerVerified: true,
+                desc,
+                image,
+                reviews: []
+            };
+
+            itemsDatabase.unshift(newItem);
+            renderItems();
+            renderOwnerItems();
+            closeUploadModal();
+            document.getElementById('upload-form').reset();
+            showToast(`Barang "${title}" berhasil ditayangkan di ReUse!`);
+        }
+
+        function openVerificationModal() {
+            document.getElementById('modal-verification').classList.remove('hidden');
+        }
+
+        function closeVerificationModal() {
+            document.getElementById('modal-verification').classList.add('hidden');
+        }
+
+        function handleVerificationSubmit(e) {
+            e.preventDefault();
+            closeVerificationModal();
+            showToast('Identitas berhasil diperbarui & terverifikasi!');
+        }
+
+        function openHelpModal() {
+            document.getElementById('modal-help').classList.remove('hidden');
+        }
+
+        function closeHelpModal() {
+            document.getElementById('modal-help').classList.add('hidden');
+        }
+
+        function handleDisputeSubmit(e) {
+            e.preventDefault();
+            closeHelpModal();
+            showToast('Laporan sengketa berhasil dikirim ke Admin ReUse.');
+        }
+
+        function openAdminModal() {
+            document.getElementById('modal-admin').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('modal-admin').classList.add('hidden');
+        }
+
+        // INFOGRAPHIC PRESENTATION DATA
+        const infographicData = {
+            1: {
+                title: "1. Kategori General ReUse",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-reuse-brown">
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-tv"></i> Elektronik & Gadget</h4>
+                            <p>Kamera, proyektor, TV, speaker, dan perlengkapan elektronik lainnya.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-shirt"></i> Pakaian & Fashion</h4>
+                            <p>Gaun pesta, jas formal, pakaian adat, dan jaket outdoor layak pakai.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-couch"></i> Interior & Perabot</h4>
+                            <p>Sofa, rak minimalis, meja, dan dekorasi ruangan untuk rumah atau event.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-blender"></i> Rumah Tangga</h4>
+                            <p>Blender, vacuum cleaner, kompor portable, dan peralatan dapur harian.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-basketball"></i> Hobi & Olahraga</h4>
+                            <p>Tenda camping, sepeda, raket, dan alat musik.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/25 space-y-1">
+                            <h4 class="font-bold text-reuse-green text-sm mb-1"><i class="fa-solid fa-car"></i> Otomotif & Aksesoris</h4>
+                            <p>Roofbox mobil, helm, jok tambahan, dan box motor.</p>
+                        </div>
+                    </div>
+                `
+            },
+            2: {
+                title: "2. Fitur Interaktif Penyewa & Pembeli",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-reuse-brown">
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-calendar-days"></i> Kalender Ketersediaan Sewa</h4>
+                            <p>Cek tanggal mulai dan pengembalian barang secara real-time agar tidak bentrok dengan penyewa lain.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-vault"></i> Proteksi Deposit Jaminan</h4>
+                            <p>Sistem deposit aman yang dikelola platform dan dapat direfund penuh setelah barang dikembalikan normal.</p>
+                        </div>
+                    </div>
+                `
+            },
+            3: {
+                title: "3. Fitur Pemilik Barang & Cuan",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-reuse-brown">
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Fleksibel (Sewa / Jual)</h4>
+                            <p>Atur tarif harian untuk sewa atau harga tetap untuk jual barang bekas layak pakai.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-chart-line"></i> Dashboard Pendapatan</h4>
+                            <p>Rekapitulasi otomatis komisi bersih dan status pesanan masuk.</p>
+                        </div>
+                    </div>
+                `
+            },
+            4: {
+                title: "4. Keamanan & Admin Console",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-reuse-brown">
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-shield-check"></i> Verifikasi KTP / Identitas</h4>
+                            <p>Mencegah penipuan dengan validasi identitas asli pengguna.</p>
+                        </div>
+                        <div class="p-4 bg-reuse-cream/60 rounded-2xl border border-reuse-olive/20 space-y-1">
+                            <h4 class="font-bold text-reuse-brown text-sm"><i class="fa-solid fa-headset"></i> Pusat Sengketa & Bantuan</h4>
+                            <p>Admin siap menengahi kendala kerusakan atau keterlambatan pengembalian.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function setInfoSection(step) {
+            document.querySelectorAll('.info-step-btn').forEach((btn, idx) => {
+                if ((idx + 1) === step) {
+                    btn.className = "info-step-btn active px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-reuse-green text-white";
+                } else {
+                    btn.className = "info-step-btn px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition bg-white text-reuse-brown hover:bg-reuse-cream-card";
+                }
+            });
+
+            const data = infographicData[step];
+            document.getElementById('infographic-container').innerHTML = `
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-reuse-brown border-b pb-3 border-reuse-cream-card">${data.title}</h3>
+                    ${data.content}
+                </div>
+            `;
+        }
+
+        // CALCULATOR LOGIC
+        function updateCalculator() {
+            const selectEl = document.getElementById('calc-item-type');
+            const selectedOption = selectEl.options[selectEl.selectedIndex];
+            const dailyRate = parseInt(selectedOption.getAttribute('data-rate')) || 100000;
+            const co2Rate = parseFloat(selectedOption.getAttribute('data-co2')) || 5.0;
+
+            const days = parseInt(document.getElementById('calc-days').value);
+            const qty = parseInt(document.getElementById('calc-qty').value);
+
+            document.getElementById('calc-days-label').textContent = `${days} Hari`;
+            document.getElementById('calc-qty-label').textContent = `${qty} Unit`;
+
+            const monthlyIncome = dailyRate * days * qty;
+            const yearlyIncome = monthlyIncome * 12;
+            const carbonSaved = (co2Rate * days * qty).toFixed(1);
+
+            document.getElementById('calc-monthly-income').textContent = `Rp ${monthlyIncome.toLocaleString('id-ID')}`;
+            document.getElementById('calc-yearly-income').textContent = `Rp ${yearlyIncome.toLocaleString('id-ID')}`;
+            document.getElementById('calc-carbon-saved').textContent = `${carbonSaved} kg CO2`;
+        }
+
+        function switchMainTab(tabName) {
+            ['marketplace', 'owner-dashboard', 'infographic', 'calculator'].forEach(t => {
+                const el = document.getElementById(`tab-${t}`);
+                const btn = document.getElementById(`nav-btn-${t}`);
+                if (t === tabName) {
+                    el.classList.remove('hidden');
+                    if (btn) btn.className = "px-3.5 py-2 rounded-xl transition bg-reuse-green text-white font-semibold";
+                } else {
+                    el.classList.add('hidden');
+                    if (btn) btn.className = "px-3.5 py-2 rounded-xl transition hover:bg-reuse-olive/20";
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').textContent = msg;
+            toast.classList.remove('hidden', 'translate-y-10', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
